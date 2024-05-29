@@ -7,7 +7,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Demobase AI",
+  title: "Demospace",
   description: "The AI-powered product expert that scales.",
 };
 
