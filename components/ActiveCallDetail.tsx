@@ -1,17 +1,31 @@
+import { MutedMicrophoneIcon } from "@/assets/Icons";
+import { InputAudioVisualizer, OutputAudioVisualizer } from "@/components/audio/Visualizer";
 import { Button } from "@/components/button/Button";
-import { cn } from "@/utils/classnames";
+import { MicrophoneIcon, PauseIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { PlayIcon } from "@heroicons/react/24/solid";
 
 export const ActiveCallDetail: React.FC<{
   assistantIsSpeaking: boolean;
   onEndCallClick: () => void;
-}> = ({ assistantIsSpeaking, onEndCallClick }) => {
+  onPauseClick: () => void;
+  paused: boolean;
+}> = ({ assistantIsSpeaking, onEndCallClick, onPauseClick, paused }) => {
   return (
     <div>
-      <div className="flex flex-col items-center justify-center p-4 border border-solid border-[#ddd] rounded-lg shadow-md w-96 h-48">
+      <div className="flex flex-col items-center justify-center p-4 border border-solid border-[#ddd] rounded-3xl shadow-md w-96 h-48">
         <AssistantSpeechIndicator isSpeaking={assistantIsSpeaking} />
       </div>
-      <div className="mt-5 text-center">
-        <Button onClick={onEndCallClick}>End Call </Button>
+      <div className="flex mt-8 gap-5 justify-center">
+        <Button className="rounded-full bg-gray-400 p-3" onClick={onPauseClick}>
+          {paused ? <PlayIcon className="h-8" /> : <PauseIcon className="h-8" />}
+        </Button>
+        <Button className="rounded-full bg-red-500 p-3" onClick={onEndCallClick}>
+          <XMarkIcon className="h-8" />
+        </Button>
+      </div>
+      <div className="flex items-center justify-center mt-4 mr-3">
+        {paused ? <MutedMicrophoneIcon className="h-8 mr-1" /> : <MicrophoneIcon className="h-8 mr-1" />}
+        <InputAudioVisualizer paused={paused} />
       </div>
     </div>
   );
@@ -19,9 +33,8 @@ export const ActiveCallDetail: React.FC<{
 
 const AssistantSpeechIndicator: React.FC<{ isSpeaking: boolean }> = ({ isSpeaking }) => {
   return (
-    <div className="flex items-center mb-2">
-      <div className={cn("w-5 h-5 mr-2 rounded", isSpeaking ? "bg-[#3ef07c]" : "bg-[#f03e3e]")} />
-      <p className="bg-slate-50 m-0">{isSpeaking ? "Assistant speaking" : "Assistant not speaking"}</p>
+    <div className="flex flex-col items-center mb-2">
+      <OutputAudioVisualizer isSpeaking={isSpeaking} />
     </div>
   );
 };

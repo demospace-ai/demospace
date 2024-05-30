@@ -54,39 +54,20 @@ export const DotsLoading: React.FC<LoadingProps> = (props) => {
   );
 };
 
-// .dot-flashing {
-//   position: relative;
-//   width: 10px;
-//   height: 10px;
-//   border-radius: 5px;
-//   background-color: #9880ff;
-//   color: #9880ff;
-//   animation: dot-flashing 1s infinite linear alternate;
-//   animation-delay: 0.5s;
-// }
-// .dot-flashing::before, .dot-flashing::after {
-//   content: "";
-//   display: inline-block;
-//   position: absolute;
-//   top: 0;
-// }
-// .dot-flashing::before {
-//   left: -15px;
-//   width: 10px;
-//   height: 10px;
-//   border-radius: 5px;
-//   background-color: #9880ff;
-//   color: #9880ff;
-//   animation: dot-flashing 1s infinite alternate;
-//   animation-delay: 0s;
-// }
-// .dot-flashing::after {
-//   left: 15px;
-//   width: 10px;
-//   height: 10px;
-//   border-radius: 5px;
-//   background-color: #9880ff;
-//   color: #9880ff;
-//   animation: dot-flashing 1s infinite alternate;
-//   animation-delay: 1s;
-// }
+export const LoadingSpinner: React.FC<LoadingProps> = (props) => {
+  return (
+    <div {...props}>
+      <div
+        className="relative w-64 h-64 rounded-full animate-spin"
+        style={{
+          background: "conic-gradient(from 135deg at 50% 50%, white 0deg, black 360deg)",
+        }}
+      >
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-24 h-24 rounded-full bg-white"></div>
+        </div>
+        <div className="absolute bottom-6 right-7 w-20 h-20 rounded-full bg-black"></div>
+      </div>
+    </div>
+  );
+};

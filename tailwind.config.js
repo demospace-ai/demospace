@@ -1,14 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+  content: ["./app/**/*.{js,ts,jsx,tsx,mdx}", "./components/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       animation: {
         "spin-slow": "spin 15s linear infinite",
         shimmer: "shimmer 1.5s linear infinite",
+        grow: "grow 3s linear",
         "fade-in": "fade-in 200ms ease-in-out",
         "dot-flashing": "dot-flashing 1s infinite linear alternate",
         "infinite-scroll": "infinite-scroll 20s linear infinite",
@@ -46,6 +44,14 @@ module.exports = {
           },
           "30%, 100%": {
             opacity: "0.2",
+          },
+        },
+        grow: {
+          "0%": {
+            transform: "scale(0.2)",
+          },
+          "100%": {
+            transform: "scale(1)",
           },
         },
         "infinite-scroll": {
