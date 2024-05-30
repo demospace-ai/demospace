@@ -17,20 +17,11 @@ export const ActiveCallDetail: React.FC<{
   );
 };
 
-const AssistantSpeechIndicator: React.FC<{ isSpeaking: boolean }> = ({
-  isSpeaking,
-}) => {
+const AssistantSpeechIndicator: React.FC<{ isSpeaking: boolean }> = ({ isSpeaking }) => {
   return (
     <div className="flex items-center mb-2">
-      <div
-        className={cn(
-          "w-5 h-5 mr-2 rounded",
-          isSpeaking ? "bg-[#3ef07c]" : "bg-[#f03e3e]"
-        )}
-      />
-      <p className="bg-slate-50 m-0">
-        {isSpeaking ? "Assistant speaking" : "Assistant not speaking"}
-      </p>
+      <div className={cn("w-5 h-5 mr-2 rounded", isSpeaking ? "bg-[#3ef07c]" : "bg-[#f03e3e]")} />
+      <p className="bg-slate-50 m-0">{isSpeaking ? "Assistant speaking" : "Assistant not speaking"}</p>
     </div>
   );
 };

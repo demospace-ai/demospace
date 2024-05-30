@@ -2,7 +2,7 @@
 
 import { ActiveCallDetail } from "@/components/ActiveCallDetail";
 import { Button } from "@/components/button/Button";
-import { Loading } from "@/components/button/loading/Loading";
+import { Loading } from "@/components/loading/Loading";
 import { AssistantOptions } from "@/utils/vapi/config";
 import Vapi from "@vapi-ai/web";
 import { useEffect, useState } from "react";
@@ -54,14 +54,9 @@ export const Demi: React.FC = () => {
   return (
     <>
       {!connected ? (
-        <Button onClick={startCallInline}>
-          {connecting ? <Loading className="mx-auto" light /> : "Start Demo"}
-        </Button>
+        <Button onClick={startCallInline}>{connecting ? <Loading className="mx-auto" light /> : "Start Demo"}</Button>
       ) : (
-        <ActiveCallDetail
-          assistantIsSpeaking={assistantIsSpeaking}
-          onEndCallClick={endCall}
-        />
+        <ActiveCallDetail assistantIsSpeaking={assistantIsSpeaking} onEndCallClick={endCall} />
       )}
     </>
   );
