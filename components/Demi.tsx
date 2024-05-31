@@ -3,11 +3,17 @@
 import { ActiveCallDetail } from "@/components/ActiveCallDetail";
 import { Button } from "@/components/button/Button";
 import { LoadingSpinner } from "@/components/loading/Loading";
-import { AssistantOptions } from "@/utils/vapi/config";
+import { SlideDisplay } from "@/components/slides/Slide";
 import Vapi from "@vapi-ai/web";
 import { useEffect, useState } from "react";
+import { v4 } from "uuid";
 
+const ASSISTANT_ID =
+  process.env.NODE_ENV === "development"
+    ? "e61177f1-25d3-4273-8d5e-649555b9ccb7"
+    : "08d6e6dc-b5ab-4bff-86b9-5126653f56ad";
 const vapi = new Vapi("969bf530-507e-4751-8aec-07b9f8f93020");
+const channelId = v4();
 
 export const Demi: React.FC = () => {
   const [connecting, setConnecting] = useState(false);
@@ -15,6 +21,9 @@ export const Demi: React.FC = () => {
   const [paused, setPaused] = useState(false);
 
   const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);
+
+  // TODO: Fetch from server based on URL slug
+  const assistantId = ASSISTANT_ID;
 
   useEffect(() => {
     vapi.on("call-start", () => {
@@ -39,18 +48,21 @@ export const Demi: React.FC = () => {
       console.error(error);
       setConnecting(false);
     });
-
-    // we only want this to fire on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startCallInline = () => {
     setConnecting(true);
-    vapi.start(AssistantOptions);
+    vapi.start(assistantId, {
+      variableValues: {
+        channelId: channelId,
+      },
+    });
   };
+
   const endCall = () => {
     vapi.stop();
   };
+
   const pause = () => {
     const audioElements = document.querySelectorAll("audio");
     audioElements.forEach((audio) => {
@@ -60,7 +72,12 @@ export const Demi: React.FC = () => {
     setPaused(true);
     setAssistantIsSpeaking(false);
   };
+
   const unpause = () => {
+    const audioElements = document.querySelectorAll("audio");
+    audioElements.forEach((audio) => {
+      audio.play();
+    });
     vapi.send({
       type: "add-message",
       message: {
@@ -78,7 +95,9 @@ export const Demi: React.FC = () => {
         connecting ? (
           <LoadingSpinner className="mx-auto animate-grow" />
         ) : (
-          <Button onClick={startCallInline}>Start Demo</Button>
+          <Button className="w-40" onClick={startCallInline}>
+            Start Demo
+          </Button>
         )
       ) : (
         <ActiveCallDetail
@@ -88,6 +107,7 @@ export const Demi: React.FC = () => {
           paused={paused}
         />
       )}
+      <SlideDisplay channelID={channelId} />
     </>
   );
 };

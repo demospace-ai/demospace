@@ -15,7 +15,7 @@ export const ActiveCallDetail: React.FC<{
       <div className="flex flex-col items-center justify-center p-4 border border-solid border-[#ddd] rounded-3xl shadow-md w-96 h-48">
         <AssistantSpeechIndicator isSpeaking={assistantIsSpeaking} />
       </div>
-      <div className="flex mt-8 gap-5 justify-center">
+      <div className="flex mt-8 gap-12 justify-center">
         <Button className="rounded-full bg-gray-400 p-3" onClick={onPauseClick}>
           {paused ? <PlayIcon className="h-8" /> : <PauseIcon className="h-8" />}
         </Button>

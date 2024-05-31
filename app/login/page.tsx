@@ -36,7 +36,7 @@ export default function Login({ searchParams }: { searchParams: { message: strin
       email,
       password,
       options: {
-        emailRedirectTo: `${origin}/auth/callback`,
+        emailRedirectTo: `${origin}/api/auth/callback`,
       },
     });
 
