@@ -29,8 +29,8 @@ export const SlideDisplay: React.FC<{ channelID: string }> = ({ channelID }) => 
   }
 
   return (
-    <div className="flex flex-1 relative max-w-screen-sm w-full max-h-[480px] h-full">
-      <Image src={slide.src} alt={slide.alt} width={640} height={360} />
+    <div className="flex flex-1 relative max-w-screen-sm w-full max-h-[400px] h-full">
+      <Image src={slide.src} alt={slide.alt} fill sizes="70vw" />
     </div>
   );
 };

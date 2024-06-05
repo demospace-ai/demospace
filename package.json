@@ -12,10 +12,15 @@
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
     "@vapi-ai/web": "^1.1.7",
+    "ai": "^3.1.23",
     "autoprefixer": "10.4.17",
     "clsx": "^2.1.1",
+    "elevenlabs": "^0.6.0",
     "geist": "^1.2.1",
+    "net": "^1.0.2",
     "next": "latest",
+    "openai": "^4.47.3",
+    "playht": "^0.9.8",
     "postcss": "8.4.33",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -32,5 +37,12 @@
     "encoding": "^0.1.13",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.3"
+  },
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "tls": false
   }
 }

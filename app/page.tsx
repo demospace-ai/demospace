@@ -1,4 +1,4 @@
-import { Demi } from "@/components/Demi";
+import { Demi } from "@/components/assistant/Demi";
 import { Footer } from "@/components/Footer";
 
 export default async function Index() {
