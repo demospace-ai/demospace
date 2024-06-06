@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps & { ref?: Ref<HTMLButtonElement> }> = 
   const { onClick, type = "button", className, children, ...remaining } = props;
 
   const buttonStyle = cn(
-    "text-white bg-blue-950 hover:bg-blue-900",
+    "text-white bg-slate-900 hover:bg-slate-700",
     "py-1 px-4 cursor-pointer font-semibold shadow-none rounded-md tracking-[1px] transition select-none",
     props.disabled && "text-slate-600 bg-slate-300 hover:bg-slate-300 cursor-not-allowed",
     props.className,
@@ -41,7 +41,7 @@ export const LinkButton: React.FC<LinkButtonProps> = forwardRef<HTMLAnchorElemen
   const { href, className, children, ...remaining } = props;
 
   const buttonStyle = cn(
-    "flex items-center justify-center text-white bg-blue-950 hover:bg-blue-900 tracking-[1px] py-1 px-4 cursor-pointer font-bold shadow-none rounded-md transition select-none",
+    "flex items-center justify-center text-white bg-slate-900 hover:bg-slate-700 tracking-[1px] py-1 px-4 cursor-pointer font-bold shadow-none rounded-md transition select-none",
     props.className,
   );
   return (
@@ -60,7 +60,7 @@ type FormButtonProps = {
 
 export const FormButton: React.FC<FormButtonProps> = (props) => {
   const buttonStyle = cn(
-    "text-white bg-blue-950 hover:bg-blue-900 py-1 px-4 cursor-pointer font-bold shadow-none rounded-md tracking-[1px] transition select-none",
+    "text-white bg-slate-900 hover:bg-slate-700 py-1 px-4 cursor-pointer font-bold shadow-none rounded-md tracking-[1px] transition select-none",
     props.className,
   );
   return (
