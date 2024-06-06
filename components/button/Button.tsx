@@ -18,7 +18,7 @@ export const Button: React.FC<ButtonProps & { ref?: Ref<HTMLButtonElement> }> = 
 
   const buttonStyle = cn(
     "text-white bg-slate-900 hover:bg-slate-700",
-    "py-1 px-4 cursor-pointer font-semibold shadow-none rounded-md tracking-[1px] transition select-none",
+    "py-1 px-4 cursor-pointer font-medium shadow-none rounded-md tracking-[1px] transition select-none",
     props.disabled && "text-slate-600 bg-slate-300 hover:bg-slate-300 cursor-not-allowed",
     props.className,
   );
