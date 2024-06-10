@@ -2,10 +2,9 @@ import NameAndLogo from "@/assets/name-and-logo.svg";
 import { Button } from "@/components/button/Button";
 import { Link } from "@/components/link/Link";
 import {
+  BookOpenIcon,
   Cog6ToothIcon,
-  FolderIcon,
   HomeIcon,
-  NewspaperIcon,
   PlayCircleIcon,
   PresentationChartBarIcon,
   SquaresPlusIcon,
@@ -18,7 +17,7 @@ export const NavBar: React.FC<{}> = () => {
   return (
     <nav className="flex flex-col justify-between w-56 min-w-56 h-full min-h-screen px-4 py-6 border-r border-solid border-slate-200 bg-slate-50">
       <div className="flex flex-col gap-6">
-        <Image src={NameAndLogo} alt="Demospace name and logo" width={191} height={27.17} />
+        <Image src={NameAndLogo} alt="Demospace name and logo" width={180} height={25.31} />
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <NavItem destination="/">
@@ -29,12 +28,8 @@ export const NavBar: React.FC<{}> = () => {
               <PresentationChartBarIcon className="h-full" />
               <span className="text-sm">Assets</span>
             </NavItem>
-            <NavItem destination="/scripts">
-              <NewspaperIcon className="h-full" />
-              <span className="text-sm">Scripts</span>
-            </NavItem>
             <NavItem destination="/knowledge">
-              <FolderIcon className="h-full" />
+              <BookOpenIcon className="h-full" />
               <span className="text-sm">Knowledge</span>
             </NavItem>
             <NavItem destination="/preview">
@@ -60,8 +55,8 @@ export const NavBar: React.FC<{}> = () => {
         </div>
       </div>
       <div className="flex flex-col gap-5">
-        <Button className="flex gap-2 h-9 items-center justify-center p-2">
-          <SparklesIcon className="h-full" />
+        <Button>
+          <SparklesIcon className="h-4 w-4" />
           Upgrade
         </Button>
       </div>
