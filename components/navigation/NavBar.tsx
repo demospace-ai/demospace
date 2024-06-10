@@ -1,5 +1,6 @@
 import NameAndLogo from "@/assets/name-and-logo.svg";
 import { Button } from "@/components/button/Button";
+import { Link } from "@/components/link/Link";
 import {
   Cog6ToothIcon,
   FolderIcon,
@@ -12,7 +13,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
-import Link from "next/link";
 
 export const NavBar: React.FC<{}> = () => {
   return (
@@ -73,7 +73,7 @@ export const NavItem: React.FC<{ destination: string; children: React.ReactNode 
   return (
     <Link
       href={destination}
-      className="flex items-center w-full h-8 max-h-8 px-2 py-1.5 gap-2 rounded text-slate-800 hover:bg-slate-200"
+      className="flex items-center w-full h-8 max-h-8 px-2 py-1.5 gap-2 rounded text-slate-800 hover:bg-slate-200 link-active:bg-slate-200"
     >
       {children}
     </Link>
