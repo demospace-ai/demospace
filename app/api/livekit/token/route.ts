@@ -12,5 +12,10 @@ export async function GET(request: Request) {
     canPublishData: true,
     canSubscribe: true,
   });
-  return Response.json({ token: await at.toJwt(), wsUrl: process.env.LIVEKIT_URL });
+  return Response.json(
+    { token: await at.toJwt(), wsUrl: process.env.LIVEKIT_URL },
+    {
+      status: 200,
+    },
+  );
 }
