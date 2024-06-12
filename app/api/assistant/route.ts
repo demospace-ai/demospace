@@ -24,9 +24,9 @@ export async function POST(req: Request) {
     // Run the assistant on the thread
     const runStream = openai.beta.threads.runs.stream(threadId, {
       assistant_id:
-        process.env.ASSISTANT_ID ??
+        process.env.OPEN_AI_ASSISTANT_ID ??
         (() => {
-          throw new Error("ASSISTANT_ID is not set");
+          throw new Error("OPEN_AI_ASSISTANT_ID is not set");
         })(),
     });
 

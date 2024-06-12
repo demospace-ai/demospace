@@ -1,84 +1,103 @@
-import { useEffect, useRef } from "react";
+"use client";
 
-export const OutputAudioVisualizer: React.FC<{ isSpeaking: boolean }> = ({ isSpeaking }) => {
-  const barsRef = useRef<HTMLDivElement[]>([]);
+import { cn } from "@/utils/classnames";
+import { useEffect, useState } from "react";
+
+type VisualizerState = "listening" | "idle" | "speaking" | "thinking";
+type AccentColor = "gray" | "green" | "blue" | "red" | "yellow";
+type AgentMultibandAudioVisualizerProps = {
+  state: VisualizerState;
+  barWidth: number;
+  minBarHeight: number;
+  maxBarHeight: number;
+  accentColor: AccentColor;
+  frequencies: Float32Array[];
+  borderRadius: number;
+  gap: number;
+  className?: string;
+};
+
+export const AudioVisualizer = ({
+  state,
+  barWidth,
+  minBarHeight,
+  maxBarHeight,
+  accentColor,
+  frequencies,
+  borderRadius,
+  gap,
+  className,
+}: AgentMultibandAudioVisualizerProps) => {
+  const summedFrequencies = frequencies.map((bandFrequencies) => {
+    const sum = bandFrequencies.reduce((a, b) => a + b, 0);
+    return Math.sqrt(sum / bandFrequencies.length);
+  });
+
+  const [thinkingIndex, setThinkingIndex] = useState(Math.floor(summedFrequencies.length / 2));
+  const [thinkingDirection, setThinkingDirection] = useState<"left" | "right">("right");
+
+  const { bgColor, shadowColor } = accentColorToClassNames(accentColor);
   useEffect(() => {
-    const animateBars = () => {
-      barsRef.current.forEach((bar) => {
-        if (!bar) return;
-        const randomHeight = Math.floor(Math.random() * 100);
-        bar.style.height = isSpeaking ? `${randomHeight}%` : "50%";
-      });
-      requestAnimationFrame(animateBars);
-    };
-    animateBars();
-  }, [isSpeaking]);
+    if (state !== "thinking") {
+      setThinkingIndex(Math.floor(summedFrequencies.length / 2));
+      return;
+    }
+    const timeout = setTimeout(() => {
+      if (thinkingDirection === "right") {
+        if (thinkingIndex === summedFrequencies.length - 1) {
+          setThinkingDirection("left");
+          setThinkingIndex((prev) => prev - 1);
+        } else {
+          setThinkingIndex((prev) => prev + 1);
+        }
+      } else {
+        if (thinkingIndex === 0) {
+          setThinkingDirection("right");
+          setThinkingIndex((prev) => prev + 1);
+        } else {
+          setThinkingIndex((prev) => prev - 1);
+        }
+      }
+    }, 200);
+
+    return () => clearTimeout(timeout);
+  }, [state, summedFrequencies.length, thinkingDirection, thinkingIndex]);
+
   return (
-    <div className="flex justify-center items-center h-40">
-      {[...Array(4)].map((_, index) => (
-        <div
-          key={index}
-          ref={(el) => (barsRef.current[index] = el as HTMLDivElement)}
-          className="w-12 h-1/2 bg-slate-300 mx-1 transition-all duration-100 ease-in-out rounded-full"
-        />
-      ))}
+    <div
+      className={cn("flex flex-row items-center", className)}
+      style={{
+        gap: gap + "px",
+      }}
+    >
+      {summedFrequencies.map((frequency, index) => {
+        return (
+          <div
+            className={`${bgColor} shadow-[0_0_15px_-3px] ${shadowColor} ${state === "listening" && "animate-pulse"}`}
+            key={"frequency-" + index}
+            style={{
+              height: minBarHeight + frequency * (maxBarHeight - minBarHeight) + "px",
+              borderRadius: borderRadius + "px",
+              width: barWidth + "px",
+            }}
+          />
+        );
+      })}
     </div>
   );
 };
 
-export const InputAudioVisualizer: React.FC<{ paused: boolean }> = ({ paused }) => {
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
-  const requestRef = useRef<number | null>(null);
-  const barsRef = useRef<(HTMLDivElement | null)[]>([]);
-  useEffect(() => {
-    const audioContext = new AudioContext();
-    audioContextRef.current = audioContext;
-    const analyser = audioContext.createAnalyser();
-    analyser.fftSize = 256;
-    analyserRef.current = analyser;
-    navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-      })
-      .then((stream) => {
-        const source = audioContext.createMediaStreamSource(stream);
-        source.connect(analyser);
-      });
-    const animate = () => {
-      if (analyserRef.current) {
-        const dataArray = new Uint8Array(analyserRef.current.frequencyBinCount);
-        analyserRef.current.getByteFrequencyData(dataArray);
-        barsRef.current.forEach((bar, index) => {
-          if (bar) {
-            const data = dataArray[index];
-            const height = paused ? 20 : data < 150 ? 20 : data / 4;
-            bar.style.height = `${height}px`;
-          }
-        });
-      }
-      requestRef.current = requestAnimationFrame(animate);
-    };
-    requestRef.current = requestAnimationFrame(animate);
-    return () => {
-      if (requestRef.current) {
-        cancelAnimationFrame(requestRef.current);
-      }
-      if (audioContextRef.current) {
-        audioContextRef.current.close();
-      }
-    };
-  }, [paused]);
-
-  return (
-    <div className="flex items-center space-x-4 h-20">
-      {[...Array(4)].map((_, index) => (
-        <div
-          key={index}
-          ref={(el) => (barsRef.current[index] = el)}
-          className="w-4 h-5 bg-blue-500 rounded-full transition-all duration-75 ease-in-out"
-        />
-      ))}
-    </div>
-  );
-};
+function accentColorToClassNames(accentColor: AccentColor): { bgColor: string; shadowColor: string } {
+  switch (accentColor) {
+    case "gray":
+      return { bgColor: "bg-gray-400", shadowColor: "shadow-gray-400" };
+    case "green":
+      return { bgColor: "bg-green-400", shadowColor: "shadow-green-400" };
+    case "blue":
+      return { bgColor: "bg-blue-400", shadowColor: "shadow-blue-400" };
+    case "red":
+      return { bgColor: "bg-red-400", shadowColor: "shadow-red-400" };
+    case "yellow":
+      return { bgColor: "bg-yellow-400", shadowColor: "shadow-yellow-400" };
+  }
+}

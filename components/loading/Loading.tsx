@@ -58,15 +58,15 @@ export const LoadingSpinner: React.FC<LoadingProps> = (props) => {
   return (
     <div {...props}>
       <div
-        className="relative w-64 h-64 rounded-full animate-spin"
+        className="relative w-32 h-32 rounded-full animate-spin"
         style={{
-          background: "conic-gradient(from 135deg at 50% 50%, white 0deg, black 360deg)",
+          background: "conic-gradient(from 135deg at 50% 50%, white 0deg, rgb(59 130 246) 360deg)",
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-24 h-24 rounded-full bg-white"></div>
+          <div className="w-[42px] h-[42px] rounded-full bg-white"></div>
         </div>
-        <div className="absolute bottom-6 right-7 w-20 h-20 rounded-full bg-black"></div>
+        <div className="absolute bottom-[11px] right-[14px] w-[43px] h-[43px] rounded-full bg-blue-500"></div>
       </div>
     </div>
   );

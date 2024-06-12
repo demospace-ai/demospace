@@ -4,7 +4,6 @@ export async function POST(request: Request) {
   const supabase = createClient();
   const json = await request.json();
   const params = json.message.functionCall.parameters;
-  console.log(params);
 
   supabase.channel(params.channelID).send({
     type: "broadcast",

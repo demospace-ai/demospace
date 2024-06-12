@@ -17,7 +17,7 @@ export const NavBar: React.FC<{}> = () => {
   return (
     <nav className="flex flex-col justify-between w-56 min-w-56 h-full min-h-screen px-4 py-6 border-r border-solid border-slate-200 bg-slate-50">
       <div className="flex flex-col gap-6">
-        <Image src={NameAndLogo} alt="Demospace name and logo" width={180} height={25.31} />
+        <Image src={NameAndLogo} alt="Demospace name and logo" width={180} height={25.31} className="w-auto" />
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-1">
             <NavItem destination="/">
