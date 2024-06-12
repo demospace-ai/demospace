@@ -1,6 +1,7 @@
 "use client";
 
 import { MutedMicrophoneIcon } from "@/assets/Icons";
+import NameAndLogo from "@/assets/name-and-logo.svg";
 import OtterDemo from "@/assets/otter-demo.png";
 import { TranscriptionDisplay } from "@/components/assistant/TranscriptionDisplay";
 import { ChatMessageType } from "@/components/assistant/types";
@@ -48,6 +49,15 @@ function AgentRoomInner() {
     </LiveKitRoom>
   );
 }
+
+const PoweredByDemospace = () => {
+  return (
+    <div className="absolute -bottom-7 right-0 flex gap-2 mt-1">
+      <span className="text-gray-500 text-sm">Powered by</span>
+      <Image src={NameAndLogo} width={101} height={14} alt="Demospace Logo" />
+    </div>
+  );
+};
 
 function RoomInteractionDisplay() {
   const [overlay, setOverlay] = useState<boolean>(true);
@@ -119,7 +129,8 @@ function RoomInteractionDisplay() {
   }, [agentAudioTrackRef]);
 
   return (
-    <div className="flex flex-col shadow-centered-lg bg-white border border-solid border-slate-200 rounded-lg p-6 max-w-[1000px]">
+    <div className="relative flex flex-col shadow-centered-lg bg-white border border-solid border-slate-200 rounded-lg p-6 max-w-[1000px]">
+      <PoweredByDemospace />
       <h2 className="font-semibold text-lg mb-2">Otter AI Demo</h2>
       <div className="relative flex flex-col w-full h-full">
         <Image src={assetSrc} width={960} height={540} alt="Otter Demo Title Slide" className="select-none" priority />
