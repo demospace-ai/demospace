@@ -1,5 +1,7 @@
 import { AccessToken } from "livekit-server-sdk";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request: Request) {
   const roomName = Math.random().toString(36).substring(7);
   const apiKey = process.env.LIVEKIT_API_KEY;
