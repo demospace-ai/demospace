@@ -2,7 +2,7 @@
 
 import { MutedMicrophoneIcon } from "@/assets/Icons";
 import NameAndLogo from "@/assets/name-and-logo.svg";
-import OtterDemo from "@/assets/otter-demo.png";
+import PreviewSlide from "@/assets/preview-slide.png";
 import { TranscriptionDisplay } from "@/components/assistant/TranscriptionDisplay";
 import { ChatMessageType } from "@/components/assistant/types";
 import { ConnectionProvider, useConnection } from "@/components/assistant/useConnection";
@@ -64,7 +64,7 @@ function RoomInteractionDisplay() {
   const { connect, disconnect } = useConnection();
   const [transcripts, setTranscripts] = useState<ChatMessageType[]>([]);
   const { localParticipant } = useLocalParticipant();
-  const [assetSrc, setAssetSrc] = useState<string>(OtterDemo.src);
+  const [assetSrc, setAssetSrc] = useState<string>(PreviewSlide.src);
 
   const roomState = useConnectionState();
   const tracks = useTracks();
@@ -131,9 +131,16 @@ function RoomInteractionDisplay() {
   return (
     <div className="relative flex flex-col shadow-centered-lg bg-white border border-solid border-slate-200 rounded-lg p-6 max-w-[1000px]">
       <PoweredByDemospace />
-      <h2 className="font-semibold text-lg mb-2">Otter AI Demo</h2>
+      <h2 className="font-semibold text-lg mb-2">Product Demo</h2>
       <div className="relative flex flex-col w-full h-full">
-        <Image src={assetSrc} width={960} height={540} alt="Otter Demo Title Slide" className="select-none" priority />
+        <Image
+          src={assetSrc}
+          width={960}
+          height={540}
+          alt="Product Demo Preview Slide"
+          className="select-none"
+          priority
+        />
         <div
           className={cn(
             overlay && "absolute top-0 left-0 bg-black/30",
