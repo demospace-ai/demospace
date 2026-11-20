@@ -1,4 +1,4 @@
-import { AssistantResponse } from "ai";
+import { assistantResponse } from "@/app/api/assistant/assistant-response";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
     content: input.message,
   });
 
-  return AssistantResponse({ threadId, messageId: createdMessage.id }, async ({ forwardStream, sendDataMessage }) => {
+  return assistantResponse({ threadId, messageId: createdMessage.id }, async (forwardStream) => {
     // Run the assistant on the thread
     const runStream = openai.beta.threads.runs.stream(threadId, {
       assistant_id:
